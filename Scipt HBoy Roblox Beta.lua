@@ -79,7 +79,7 @@ backgroundImage.Name = "Background"
 backgroundImage.Parent = v5
 backgroundImage.Size = UDim2.new(1, 0, 1, 0)
 backgroundImage.Position = UDim2.new(0, 0, 0, 0)
-backgroundImage.Image = "rbxassetid://98216042176880" -- ID ảnh nền
+backgroundImage.Image = "rbxassetid://83190276951914" -- ID ảnh nền
 backgroundImage.BackgroundTransparency = 1
 backgroundImage.ImageTransparency = 0.3
 backgroundImage.ZIndex = 0
@@ -3864,7 +3864,7 @@ if Sea3 then
             _G.AutoFindPrehistoric = false;
             if not v513 then
                 v14:Notify({
-                    Title = "Tuankiet roblox",
+                    Title = "HBoy Roblox",
                     Content = "Đảo Dung Nham Tìm Thấy",
                     Duration = 10
                 });
@@ -3958,7 +3958,7 @@ if Sea3 then
             _G.AutoFindMirage = false;
             if not v513 then
                 v14:Notify({
-                    Title = "Tuankiet roblox",
+                    Title = "HBoy Roblox",
                     Content = "Đảo Bí Ẩn Tìm Thấy",
                     Duration = 10
                 });
@@ -4052,7 +4052,7 @@ if Sea3 then
             _G.AutoFindFrozen = false;
             if not v513 then
                 v14:Notify({
-                    Title = "Tuankiet roblox",
+                    Title = "HBoy Roblox",
                     Content = "Đảo Leviathan Tìm Thấy",
                     Duration = 10
                 });
