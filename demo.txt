@@ -1,0 +1,124 @@
+-- Script: HB Gaming Hub
+-- Description: A Roblox script hub with UI inspired by the provided image using Rayfield
+-- Created for: Mobile development
+
+-- Initialize global variables
+getgenv().AutoFarm = false
+getgenv().ESP = false
+getgenv().Team = "Marines"
+
+-- Load Rayfield Library
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- Create main window
+local Window = Rayfield:CreateWindow({
+    Name = "HB Gaming",
+    LoadingTitle = "HB Gaming Hub",
+    LoadingSubtitle = "by Tuankiet",
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = nil,
+        FileName = "HBGamingConfig"
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelinkyet",
+        RememberJoins = true
+    }
+})
+
+-- Add custom background image using Roblox GUI
+local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "HBGamingBackground"
+ScreenGui.Parent = PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+local BackgroundImage = Instance.new("ImageLabel")
+BackgroundImage.Name = "Background"
+BackgroundImage.Size = UDim2.new(1, 0, 1, 0) -- Full screen
+BackgroundImage.Position = UDim2.new(0, 0, 0, 0)
+BackgroundImage.ImageTransparency = 0.3 -- Slightly transparent
+BackgroundImage.BackgroundTransparency = 1
+BackgroundImage.Image = "https://i.imgur.com/tneFCwU.png" -- Replace with your image URL
+BackgroundImage.Parent = ScreenGui
+
+-- Add tabs
+local MainTab = Window:CreateTab("Main Features")
+local TeamTab = Window:CreateTab("Team Settings")
+local DebugTab = Window:CreateTab("Debug")
+
+-- === Main Tab: Core Features ===
+local MainSection = MainTab:CreateSection("Core Functions")
+
+-- Add labels with icons (simulated)
+MainSection:CreateLabel("⚙ Cài Đặt")
+MainSection:CreateLabel("📦 Vật Phẩm")
+MainSection:CreateLabel("🌙 Đội Hình")
+MainSection:CreateLabel("🎮 Chức Năng")
+
+-- Feature 1: Auto-Farm Toggle
+MainSection:CreateToggle({
+    Name = "Auto-Farm",
+    CurrentValue = false,
+    Flag = "AutoFarmToggle",
+    Callback = function(Value)
+        getgenv().AutoFarm = Value
+        if Value then
+            print("Auto-Farm enabled")
+            spawn(function()
+                while getgenv().AutoFarm do
+                    local success, err = pcall(function()
+                        game:GetService("ReplicatedStorage").Remotes.Damage:FireServer()
+                    end)
+                    if not success then
+                        warn("Auto-Farm error: " .. err)
+                    end
+                    wait(0.5)
+                end
+            end)
+        else
+            print("Auto-Farm disabled")
+        end
+    end
+})
+
+-- Feature 2: Teleport Button
+MainSection:CreateButton({
+    Name = "Teleport",
+    Callback = function()
+        local character = game.Players.LocalPlayer.Character
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
+        else
+            warn("Character not found!")
+        end
+    end
+})
+
+-- === Team Tab: Team Settings ===
+local TeamSection = TeamTab:CreateSection("Team Options")
+TeamSection:CreateLabel("🌟 Chọn Đội")
+TeamSection:CreateDropdown({
+    Name = "Select Team",
+    Options = {"Marines", "Pirates", "Neutral"},
+    CurrentOption = "Marines",
+    Flag = "TeamDropdown",
+    Callback = function(Value)
+        getgenv().Team = Value
+        print("Team set to: " .. Value)
+    end
+})
+
+-- === Debug Tab: Debug Tools ===
+local DebugSection = DebugTab:CreateSection("Debug Tools")
+DebugSection:CreateLabel("🔧 Kiểm Tra")
+DebugSection:CreateButton({
+    Name = "Print Team",
+    Callback = function()
+        print("Current Team: " .. getgenv().Team)
+    end
+})
+
+-- Startup notification
+print("HB Gaming Hub loaded successfully!")
